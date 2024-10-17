@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comments
+  resources :posts
   devise_for :users
   # página estática
   get "/home", to: "pages#home"

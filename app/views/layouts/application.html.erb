@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="theme-dark">
   <head>
     <title><%= content_for(:title) || "Cat" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   </head>
 
-  <body>
-    <!-- Contenedor principal centrado -->
-    <div class="container" style="max-width: 70%; margin: auto; padding-top: 4rem;">
+  <body class="has-navbar-fixed-top">
+    <div class="container" style="max-width: 70%; margin: auto;">
+      <%= render 'shared/navbar_bulma' %>
+
       <% if flash[:notice] %>
         <div class="notification is-success" role="alert">
           <%= flash[:notice] %>

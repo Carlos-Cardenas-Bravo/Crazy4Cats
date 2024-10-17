@@ -1,0 +1,41 @@
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container" style="max-width: 70%; margin: auto;">
+        <div class="navbar-brand">
+            <%= link_to root_path, class: "navbar-item" do %>
+                <%= image_tag "Logo2ctrn.png", alt: "Inicio", width: "30", height: "30" %>
+            <% end %>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="<%= root_path %>">Inicio</a>
+                <% if current_user&.admin? %>
+                    <a class="navbar-item" href="<%= new_post_path %>">Publicar Nuevo Post</a>
+                    <a class="navbar-item" href="<%= users_path %>">Gestionar Roles de Usuarios</a>
+                <% end %>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <% if user_signed_in? %>
+                        <p>Bienvenido a The Rial News, <%= current_user.email %></p>
+                        <div class="buttons">
+                            <%= link_to 'Cerrar sesión', destroy_user_session_path, class: 'button is-light', data: { turbo_method: :delete } %>
+                        </div>
+                    <% else %>
+                        <div class="buttons">
+                            <%= link_to 'Regístrate', new_user_registration_path, class: 'button is-primary' %>
+                            <%= link_to 'Iniciar sesión', new_user_session_path, class: 'button is-light' %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
