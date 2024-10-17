@@ -15,9 +15,24 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   </head>
 
   <body>
+    <!-- Contenedor principal centrado -->
+    <div class="container" style="max-width: 70%; margin: auto; padding-top: 4rem;">
+      <% if flash[:notice] %>
+        <div class="notification is-success" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="notification is-danger" role="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
     <%= yield %>
   </body>
 </html>
