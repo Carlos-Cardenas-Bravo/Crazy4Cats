@@ -6,7 +6,7 @@
 
   <p>
     <strong>User:</strong>
-    <%= comment.user_id %>
+    <%= comment.user&.email || "Anónimo" %>
   </p>
 
   <p>

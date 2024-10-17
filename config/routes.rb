@@ -1,7 +1,14 @@
+# rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
 Rails.application.routes.draw do
-  resources :comments
-  resources :posts
   devise_for :users
+
+  resources :posts do
+    resources :comments, only: [ :create, :new, :edit, :update, :destroy ]
+    resource :reaction, only: [ :create ], controller: "reactions" do
+      post "create_or_update", on: :collection
+    end
+  end
+
   # página estática
   get "/home", to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -17,3 +24,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#home"
 end
+
+# rubocop:enable Layout/SpaceInsideArrayLiteralBrackets

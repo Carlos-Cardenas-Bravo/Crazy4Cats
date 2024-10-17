@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @comment = @post.comments.new  # se agrega @comment para el formulario de nuevo comentario
   end
 
   # GET /posts/new

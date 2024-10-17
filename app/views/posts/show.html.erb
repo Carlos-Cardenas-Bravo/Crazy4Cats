@@ -5,6 +5,24 @@
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>
-
   <%= button_to "Destroy this post", @post, method: :delete %>
+
+  <h3>Reacciones</h3>
+  <% if @post.reactions.exists?(user: current_user) %>
+    <p>Ya has reaccionado a este post.</p>
+  <% else %>
+    <%= form_with(model: [@post, @post.reactions.find_or_initialize_by(user: current_user)], url: create_or_update_post_reaction_path(@post), method: :post, local: true) do |f| %>
+      <% Post::Kinds.each do |kind| %>
+        <%= f.radio_button :kind, kind %>
+        <%= f.label :kind, Post::KindsSpanish[kind], value: kind %><br>
+      <% end %>
+      <%= f.submit "Enviar reacción" %>
+    <% end %>
+  <% end %>
+
+  <h3>Comentarios</h3>
+  <%= render @post.comments %>
+  <h3>Agregar un nuevo comentario</h3>
+  <%= render 'comments/form', comment: @post.comments.new %>
+
 </div>

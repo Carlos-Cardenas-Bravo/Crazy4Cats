@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :set_post, only: [:new, :create]
   before_action :set_comment, only: %i[ show edit update destroy ]
-
-  # GET /comments or /comments.json
-  def index
-    @comments = Comment.all
-  end
 
   # GET /comments/1 or /comments/1.json
   def show
@@ -12,21 +8,18 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
-  end
-
-  # GET /comments/1/edit
-  def edit
+    @comment = @post.comments.new
   end
 
   # POST /comments or /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @post.comments.new(comment_params)
+    @comment.user = current_user if user_signed_in? # se asigna el usuario si está autenticado, o se deja en nil si es visita
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: "Comment was successfully created." }
-        format.json { render :show, status: :created, location: @comment }
+        format.html { redirect_to @post, notice: "El comentario fue creado exitosamente." }
+        format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -38,8 +31,8 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
+        format.html { redirect_to @comment.post, notice: "El comentario fue actualizado exitosamente." }
+        format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -52,19 +45,25 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
+      format.html { redirect_to @comment.post, status: :see_other, notice: "El comentario fue eliminado exitosamente." }
       format.json { head :no_content }
     end
   end
 
   private
+    # encuentro el post relacionado al comentario
+    def set_post
+      @post = Post.find(params[:post_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # user_id y el post_id pasan automaticamente en el controlador no como parametros
     def comment_params
-      params.require(:comment).permit(:content, :user_id, :post_id)
+      params.require(:comment).permit(:content)
     end
 end
+

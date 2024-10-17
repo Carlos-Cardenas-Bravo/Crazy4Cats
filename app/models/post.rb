@@ -17,4 +17,13 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :content, presence: true
+
+  # Constantes para los tipos de reacciones
+  Kinds = %w[like dislike not_interested neutral].freeze
+  KindsSpanish = {
+    "like" => "Me gusta",
+    "dislike" => "No me gusta",
+    "not_interested" => "No me interesa",
+    "neutral" => "Neutral"
+  }.freeze
 end
