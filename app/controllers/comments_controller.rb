@@ -1,3 +1,4 @@
+# rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
 class CommentsController < ApplicationController
   before_action :set_post, only: [:new, :create]
   before_action :set_comment, only: %i[ show edit update destroy ]
@@ -67,3 +68,5 @@ class CommentsController < ApplicationController
     end
 end
 
+
+# rubocop:enable Layout/SpaceInsideArrayLiteralBrackets

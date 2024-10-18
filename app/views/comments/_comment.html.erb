@@ -1,17 +1,11 @@
-<div id="<%= dom_id comment %>">
+<div id="<%= dom_id comment %>" class="box">
   <p>
-    <strong>Content:</strong>
-    <%= comment.content %>
+    <strong>Contenido:</strong>
+    <span class="content"><%= comment.content %></span>
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= comment.user&.email || "Anónimo" %>
+    <strong>Usuario:</strong>
+    <span class="has-text-weight-semibold"><%= comment.user&.email || "Anónimo" %></span>
   </p>
-
-  <p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
-  </p>
-
 </div>

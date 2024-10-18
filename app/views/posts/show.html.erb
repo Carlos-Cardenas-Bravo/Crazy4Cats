@@ -1,28 +1,53 @@
-<p style="color: green"><%= notice %></p>
+<div class="section">
+  <div class="container">
+    <div class="box">
+      <%= render @post %>
 
-<%= render @post %>
+      <div class="buttons">
+        <%= link_to "Edit this post", edit_post_path(@post), class: "button is-warning" %>
+        <%= link_to "Back to posts", posts_path, class: "button is-link" %>
+        <%= button_to "Destroy this post", @post, method: :delete, class: "button is-danger" %>
+      </div>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-  <%= button_to "Destroy this post", @post, method: :delete %>
+      <div class="box">
+        <h3 class="title is-4">Reacciones</h3>
 
-  <h3>Reacciones</h3>
-  <% if @post.reactions.exists?(user: current_user) %>
-    <p>Ya has reaccionado a este post.</p>
-  <% else %>
-    <%= form_with(model: [@post, @post.reactions.find_or_initialize_by(user: current_user)], url: create_or_update_post_reaction_path(@post), method: :post, local: true) do |f| %>
-      <% Post::Kinds.each do |kind| %>
-        <%= f.radio_button :kind, kind %>
-        <%= f.label :kind, Post::KindsSpanish[kind], value: kind %><br>
-      <% end %>
-      <%= f.submit "Enviar reacción" %>
-    <% end %>
-  <% end %>
+        <% if @post.reactions.any? %>
+          <% @post.reaction_counts.each do |kind, count| %>
+            <p><%= Post::KindsSpanish[kind] %>: <strong><%= count %></strong></p>
+          <% end %>
+        <% else %>
+          <p>No hay reacciones aún.</p>
+        <% end %>
 
-  <h3>Comentarios</h3>
-  <%= render @post.comments %>
-  <h3>Agregar un nuevo comentario</h3>
-  <%= render 'comments/form', comment: @post.comments.new %>
+        <% if @post.reactions.exists?(user: current_user) %>
+          <p>Ya has reaccionado a este post.</p>
+        <% else %>
+          <%= form_with(model: [@post, @post.reactions.find_or_initialize_by(user: current_user)], url: create_or_update_post_reaction_path(@post), method: :post, local: true) do |f| %>
+            <div class="field">
+              <% Post::Kinds.each do |kind| %>
+                <div class="control">
+                  <label class="radio">
+                    <%= f.radio_button :kind, kind %>
+                    <%= Post::KindsSpanish[kind] %>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+            <div class="control">
+              <%= f.submit "Enviar reacción", class: "button is-primary" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
 
+      <div class="box">
+        <h3 class="title is-4">Comentarios</h3>
+        <%= render @post.comments %>
+
+        <h3 class="title is-4">Agregar un nuevo comentario</h3>
+        <%= render 'comments/form', comment: @post.comments.new %>
+      </div>
+    </div>
+  </div>
 </div>

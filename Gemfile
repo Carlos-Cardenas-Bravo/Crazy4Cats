@@ -63,3 +63,9 @@ gem "faker", "~> 3.4"
 gem "devise", "~> 4.9"
 
 gem "annotate", "~> 3.2"
+
+gem "image_processing", "~> 1.12", ">= 1.12.2"
+
+gem 'httparty'
+
+gem "pagy", "~> 9.1"

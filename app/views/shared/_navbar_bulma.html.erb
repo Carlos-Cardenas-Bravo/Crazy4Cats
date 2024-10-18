@@ -15,8 +15,10 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="<%= root_path %>">Inicio</a>
-                <% if current_user&.admin? %>
+                <% if user_signed_in? %>
                     <a class="navbar-item" href="<%= new_post_path %>">Publicar Nuevo Post</a>
+                <% end %>
+                <% if current_user&.admin? %>
                     <a class="navbar-item" href="<%= users_path %>">Gestionar Roles de Usuarios</a>
                 <% end %>
             </div>
@@ -24,7 +26,7 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <% if user_signed_in? %>
-                        <p>Bienvenido a The Rial News, <%= current_user.email %></p>
+                        <p>Bienvenido a Crazy4Cats, <%= current_user.name %></p>
                         <div class="buttons">
                             <%= link_to 'Cerrar sesión', destroy_user_session_path, class: 'button is-light', data: { turbo_method: :delete } %>
                         </div>

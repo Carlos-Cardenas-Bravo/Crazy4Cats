@@ -2,9 +2,13 @@
 
 <%= render @comment %>
 
-<div>
-  <%= link_to "Edit this comment", edit_comment_path(@comment) %> |
-  <%= link_to "Back to comments", comments_path %>
+<section class="section">
+  <div class="container">
+    <div class="buttons">
+      <%= link_to "Editar comentario", edit_comment_path(@comment), class: "button is-primary" %>
+      <%= link_to "Volver a comentarios", comments_path, class: "button is-link" %>
+      <%= button_to "Eliminar comentario", @comment, method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro de que deseas eliminar este comentario?" } %>
+    </div>
+  </div>
+</section>
 
-  <%= button_to "Destroy this comment", @comment, method: :delete %>
-</div>

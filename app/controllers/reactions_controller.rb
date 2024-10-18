@@ -6,7 +6,6 @@ class ReactionsController < ApplicationController
     # evito multiples reacciones al mismo post por el mismo usuario
     @reaction = Reaction.find_or_initialize_by(user: current_user, post: @post)
 
-    # Actualiza el tipo de reacción (like, dislike, etc.)
     if @reaction.update(reaction_params)
       flash[:notice] = "Tu reacción ha sido registrada"
     else

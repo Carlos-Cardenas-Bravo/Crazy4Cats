@@ -1,11 +1,22 @@
 # rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
 Rails.application.routes.draw do
-  devise_for :users
+  resources :users, only: [:index]
 
+  devise_for :users, controllers: {
+    passwords: "users/passwords"     # personalizo el restablecimiento de contraseña
+  }
   resources :posts do
     resources :comments, only: [ :create, :new, :edit, :update, :destroy ]
     resource :reaction, only: [ :create ], controller: "reactions" do
       post "create_or_update", on: :collection
+    end
+  end
+
+  # rutas para que el administrador gestione los roles de los usuarios
+  resources :users, only: [ :index ] do
+    member do
+      get "edit_role"        # ruta para que el administrador pueda ver el formulario para editar el rol
+      patch "update_role"     # ruta para que el administrador actualice el rol
     end
   end
 
@@ -22,7 +33,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "pages#home"
+  root "posts#index"
 end
 
 # rubocop:enable Layout/SpaceInsideArrayLiteralBrackets

@@ -11,6 +11,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  role                   :integer          default("normal_user"), not null
 #
 require "test_helper"
 

@@ -11,6 +11,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  role                   :integer          default("normal_user"), not null
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -22,6 +23,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy
 
-  validates :name, presence: true, length: { maximum: 50 }
+  # Define los roles con enum
+  enum role: { normal_user: 0, admin: 1 }
 
+  # Validaciones
+  validates :role, presence: true
+  validates :name, presence: true, length: { maximum: 50 }
 end

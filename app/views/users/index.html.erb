@@ -1,0 +1,22 @@
+<h1 class="title is-3">Lista de Usuarios</h1>
+
+<table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <td><%= user.email %></td>
+                <td><%= user.role.humanize %></td>
+                <td>
+                    <%= link_to 'Editar Rol', edit_role_user_path(user), class: "button is-primary is-small" %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

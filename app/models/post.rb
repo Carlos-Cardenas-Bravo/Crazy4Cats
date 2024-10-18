@@ -18,6 +18,13 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :content, presence: true
 
+  # incluyo Active Storage
+  has_one_attached :image
+
+  def reaction_counts
+    reactions.group(:kind).count
+  end
+
   # Constantes para los tipos de reacciones
   Kinds = %w[like dislike not_interested neutral].freeze
   KindsSpanish = {

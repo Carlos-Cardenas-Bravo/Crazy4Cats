@@ -1,0 +1,18 @@
+<h1 class="title is-3">Editar Rol de Usuario</h1>
+
+<%= form_with model: @user, url: update_role_user_path(@user), local: true do |f| %>
+  <div class="field">
+    <label class="label"><%= f.label :role, "Asignar rol:" %></label>
+    <div class="control">
+      <div class="select is-fullwidth">
+        <%= f.select :role, User.roles.keys.map { |role| [role.humanize, role] } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= f.submit "Actualizar Rol", class: "button is-primary" %>
+    </div>
+  </div>
+<% end %>
