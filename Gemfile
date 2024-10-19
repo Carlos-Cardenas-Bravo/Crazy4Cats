@@ -66,6 +66,6 @@ gem "annotate", "~> 3.2"
 
 gem "image_processing", "~> 1.12", ">= 1.12.2"
 
-gem 'httparty'
+gem "httparty"
 
 gem "pagy", "~> 9.1"
