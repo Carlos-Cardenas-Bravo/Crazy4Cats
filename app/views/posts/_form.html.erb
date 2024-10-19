@@ -25,9 +25,24 @@
   </div>
 
   <div class="field">
-    <%= form.label :image, "Subir Imagen" %>
+    <%= form.label :image, "Subir Imagen", class: "label" %>
     <div class="control">
-      <%= form.file_field :image %>
+      <div class="file has-name is-boxed is-primary">
+        <label class="file-label">
+          <%= form.file_field :image, class: "file-input" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Elige una imagen...
+            </span>
+          </span>
+          <span class="file-name" id="file-name">
+            No se ha seleccionado ningún archivo
+          </span>
+        </label>
+      </div>
     </div>
   </div>
 
@@ -37,4 +52,13 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  // JS para mostrar el nombre del archivo seleccionado
+  document.querySelector('.file-input').addEventListener('change', function(e) {
+    const fileName = e.target.files[0]?.name || "No se ha seleccionado ningún archivo";
+    document.getElementById('file-name').textContent = fileName;
+  });
+</script>
+
 

@@ -3,6 +3,7 @@
 <table class="table is-fullwidth is-striped is-hoverable">
     <thead>
         <tr>
+            <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
             <th>Acciones</th>
@@ -11,10 +12,11 @@
     <tbody>
         <% @users.each do |user| %>
             <tr>
+                <td><%= user.name.present? ? user.name : "Sin nombre" %></td>
                 <td><%= user.email %></td>
                 <td><%= user.role.humanize %></td>
                 <td>
-                    <%= link_to 'Editar Rol', edit_role_user_path(user), class: "button is-primary is-small" %>
+                    <%= link_to 'Editar Rol', edit_role_user_path(user), class: "button is-primary" %>
                 </td>
             </tr>
         <% end %>
