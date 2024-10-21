@@ -64,7 +64,7 @@ gem "devise", "~> 4.9"
 
 gem "annotate", "~> 3.2"
 
-gem "image_processing", "~> 1.12", ">= 1.12.2"
+gem "image_processing", "~> 1.13"
 
 gem "httparty"
 
