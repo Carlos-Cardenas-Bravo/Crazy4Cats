@@ -68,4 +68,4 @@ gem "image_processing", "~> 1.12", ">= 1.12.2"
 
 gem "httparty"
 
-gem "pagy", "~> 9.1"
+gem "pagy", "~> 9.3"
